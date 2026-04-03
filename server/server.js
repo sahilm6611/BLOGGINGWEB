@@ -95,6 +95,30 @@ app.delete("/api/blogs/:id", async (req, res) => {
   }
 });
 
+app.put("/api/blogs/like/:id", async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    blog.likes += 1;
+    await blog.save();
+
+    res.json({ message: "Liked ❤️", likes: blog.likes });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+app.put("/api/blogs/save/:id", async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    blog.saved = !blog.saved; // toggle
+    await blog.save();
+
+    res.json({ message: "Saved 💾", saved: blog.saved });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 // ✅ GET ALL BLOGS
 app.get("/api/blogs", async (req, res) => {
   try {
@@ -114,14 +138,14 @@ app.listen(5000, () => {
   try {
     const { email, password } = req.body;
 
-    // user find करा
+  
     const user = await User.findOne({ email });
 
     if (!user) {
       return res.status(404).json({ message: "User not found ❌" });
     }
 
-    // password check करा
+   
     if (user.password !== password) {
       return res.status(400).json({ message: "Wrong password ❌" });
     }
