@@ -23,7 +23,7 @@ export default function Home() {
   const deleteBlog = async (id) => {
     try {
       await axios.delete(`http://localhost:5000/api/blogs/${id}`);
-      fetchBlogs(); // refresh list
+      fetchBlogs();
     } catch (err) {
       console.log(err);
     }
@@ -42,7 +42,27 @@ export default function Home() {
         content: newContent,
       });
 
-      fetchBlogs(); // refresh list
+      fetchBlogs();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // ✅ LIKE BLOG
+  const likeBlog = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/api/blogs/like/${id}`);
+      fetchBlogs();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // ✅ SAVE BLOG
+  const saveBlog = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/api/blogs/save/${id}`);
+      fetchBlogs();
     } catch (err) {
       console.log(err);
     }
@@ -60,13 +80,24 @@ export default function Home() {
             <h3>{blog.title}</h3>
             <p>{blog.content}</p>
 
-            {/* ✅ BUTTONS */}
+            {/* ✅ UPDATE */}
             <button onClick={() => updateBlog(blog._id)}>
               Update ✏️
             </button>
 
+            {/* ✅ DELETE */}
             <button onClick={() => deleteBlog(blog._id)}>
               Delete 🗑️
+            </button>
+
+            {/* ✅ LIKE */}
+            <button onClick={() => likeBlog(blog._id)}>
+              ❤️ {blog.likes}
+            </button>
+
+            {/* ✅ SAVE */}
+            <button onClick={() => saveBlog(blog._id)}>
+              {blog.saved ? "Saved 💾" : "Save"}
             </button>
 
             <hr />
