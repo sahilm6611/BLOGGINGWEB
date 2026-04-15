@@ -4,9 +4,12 @@ import axios from "axios";
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
 
+  // ✅ IMPORTANT BASE URL (DEPLOY LINK)
+  const BASE_URL = "https://bloggingweb-1-rejs.onrender.com";
+
   // ✅ FETCH BLOGS
   const fetchBlogs = () => {
-    axios.get("http://localhost:5000/api/blogs")
+    axios.get(`${BASE_URL}/api/blogs`)
       .then((res) => {
         setBlogs(res.data);
       })
@@ -22,7 +25,7 @@ export default function Home() {
   // ✅ DELETE BLOG
   const deleteBlog = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/blogs/${id}`);
+      await axios.delete(`${BASE_URL}/api/blogs/${id}`);
       fetchBlogs();
     } catch (err) {
       console.log(err);
@@ -37,23 +40,20 @@ export default function Home() {
     if (!newTitle || !newContent) return;
 
     try {
-      await axios.put(`http://localhost:5000/api/blogs/${id}`, {
+      await axios.put(`${BASE_URL}/api/blogs/${id}`, {
         title: newTitle,
         content: newContent,
       });
-
       fetchBlogs();
     } catch (err) {
       console.log(err);
     }
   };
 
-  // ✅ LIKE BLOG (FIXED)
+  // ✅ LIKE BLOG
   const likeBlog = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/blogs/like/${id}`, {
-        userId: "123" // 👈 important
-      });
+      await axios.put(`${BASE_URL}/api/blogs/like/${id}`);
       fetchBlogs();
     } catch (err) {
       console.log(err);
@@ -63,7 +63,7 @@ export default function Home() {
   // ✅ SAVE BLOG
   const saveBlog = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/blogs/save/${id}`);
+      await axios.put(`${BASE_URL}/api/blogs/save/${id}`);
       fetchBlogs();
     } catch (err) {
       console.log(err);
@@ -82,22 +82,18 @@ export default function Home() {
             <h3>{blog.title}</h3>
             <p>{blog.content}</p>
 
-            {/* UPDATE */}
             <button onClick={() => updateBlog(blog._id)}>
               Update ✏️
             </button>
 
-            {/* DELETE */}
             <button onClick={() => deleteBlog(blog._id)}>
               Delete 🗑️
             </button>
 
-            {/* LIKE */}
             <button onClick={() => likeBlog(blog._id)}>
-              ❤️ {blog.likes?.length || 0}
+              ❤️ {blog.likes || 0}
             </button>
 
-            {/* SAVE */}
             <button onClick={() => saveBlog(blog._id)}>
               {blog.saved ? "Saved 💾" : "Save"}
             </button>
