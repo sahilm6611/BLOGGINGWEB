@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 
 const blogSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+  title: String,
+  content: String,
+
+  likes: {
+    type: [String],
+    default: []
   },
-  content: {
-    type: String,
-    required: true,
-  },
+
+  saved: {
+    type: Boolean,
+    default: false
+  }
 });
 
-module.exports = mongoose.models.Blog || mongoose.model("Blog", blogSchema);
+module.exports = mongoose.model("Blog", blogSchema);
