@@ -5,7 +5,7 @@ export default function Home() {
   const [blogs, setBlogs] = useState([]);
 
   // ✅ IMPORTANT BASE URL (DEPLOY LINK)
-  const BASE_URL = "https://blogs-repo-1.onrender.com";
+  const BASE_URL = "https://bloggingweb-1-rejs.onrender.com";
 
   // ✅ FETCH BLOGS
   const fetchBlogs = () => {
