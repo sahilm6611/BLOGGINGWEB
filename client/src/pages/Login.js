@@ -18,7 +18,7 @@ export default function Login() {
     try {
       setLoading(true);
 
-      const res = await axios.post("https://bloggingweb-1-rejs/api/login", {
+      const res = await axios.post("https://bloggingweb-1-rejs.onrender.com/api/login", {
         email,
         password,
       });
