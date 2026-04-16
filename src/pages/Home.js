@@ -50,16 +50,10 @@ export default function Home() {
     }
   };
 
-  // ✅ LIKE BLOG (FIXED)
+  // ✅ LIKE BLOG
   const likeBlog = async (id) => {
     try {
-<<<<<<< HEAD
-      await axios.put(`http://localhost:5000/api/blogs/like/${id}`, {
-        userId: "123" // 👈 important
-      });
-=======
       await axios.put(`${BASE_URL}/api/blogs/like/${id}`);
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
       fetchBlogs();
     } catch (err) {
       console.log(err);
@@ -69,11 +63,7 @@ export default function Home() {
   // ✅ SAVE BLOG
   const saveBlog = async (id) => {
     try {
-<<<<<<< HEAD
-      await axios.put(`https://blogs-repo-1.onrender/api/blogs/save/${id}`);
-=======
       await axios.put(`${BASE_URL}/api/blogs/save/${id}`);
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
       fetchBlogs();
     } catch (err) {
       console.log(err);
@@ -92,35 +82,18 @@ export default function Home() {
             <h3>{blog.title}</h3>
             <p>{blog.content}</p>
 
-<<<<<<< HEAD
-            {/* UPDATE */}
-=======
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
             <button onClick={() => updateBlog(blog._id)}>
               Update ✏️
             </button>
 
-<<<<<<< HEAD
-            {/* DELETE */}
-=======
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
             <button onClick={() => deleteBlog(blog._id)}>
               Delete 🗑️
             </button>
 
-<<<<<<< HEAD
-            {/* LIKE */}
-            <button onClick={() => likeBlog(blog._id)}>
-              ❤️ {blog.likes?.length || 0}
-            </button>
-
-            {/* SAVE */}
-=======
             <button onClick={() => likeBlog(blog._id)}>
               ❤️ {blog.likes || 0}
             </button>
 
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
             <button onClick={() => saveBlog(blog._id)}>
               {blog.saved ? "Saved 💾" : "Save"}
             </button>

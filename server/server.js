@@ -29,7 +29,11 @@ const User = require("./models/User");
    TEST ROUTE
 ========================= */
 app.get("/", (req, res) => {
+<<<<<<< HEAD
   res.send("Server working ✅");
+=======
+  res.send("Server working 🚀");
+>>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
 });
 
 /* =========================
@@ -53,7 +57,11 @@ app.post("/api/signup", async (req, res) => {
     const newUser = new User({ name, email, password });
     await newUser.save();
 
+<<<<<<< HEAD
     res.json({ message: "User created successfully ✅" });
+=======
+    res.json({ message: "User created ✅" });
+>>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -97,7 +105,11 @@ app.post("/api/blogs", async (req, res) => {
       return res.status(400).json({ message: "Missing fields ❌" });
     }
 
+<<<<<<< HEAD
     const newBlog = new Blog({ title, content, likes: 0 });
+=======
+    const newBlog = new Blog({ title, content, likes: 0, saved: false });
+>>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
     await newBlog.save();
 
     res.json({ message: "Blog created ✅" });
@@ -116,6 +128,7 @@ app.get("/api/blogs", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 // 👍 LIKE BLOG
 app.put("/api/blogs/like/:id", async (req, res) => {
   try {
@@ -150,6 +163,9 @@ app.delete("/api/blogs/:id", async (req, res) => {
 });
 
 // ✏️ UPDATE BLOG
+=======
+// UPDATE BLOG
+>>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
 app.put("/api/blogs/:id", async (req, res) => {
   try {
     const { title, content } = req.body;
@@ -170,6 +186,60 @@ app.put("/api/blogs/:id", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+=======
+// DELETE BLOG
+app.delete("/api/blogs/:id", async (req, res) => {
+  try {
+    const blog = await Blog.findByIdAndDelete(req.params.id);
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found ❌" });
+    }
+
+    res.json({ message: "Deleted 🗑️" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// LIKE BLOG
+app.put("/api/blogs/like/:id", async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found ❌" });
+    }
+
+    blog.likes = (blog.likes || 0) + 1;
+    await blog.save();
+
+    res.json({ message: "Liked ❤️", blog });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// SAVE BLOG
+app.put("/api/blogs/save/:id", async (req, res) => {
+  try {
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found ❌" });
+    }
+
+    blog.saved = !blog.saved;
+    await blog.save();
+
+    res.json({ message: "Saved 💾", blog });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+>>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
 /* =========================
    START SERVER
 ========================= */
