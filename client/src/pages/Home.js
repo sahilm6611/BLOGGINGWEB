@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// ✅ USE ENV VARIABLE (BEST PRACTICE)
+const API = import.meta.env.VITE_API_URL || "https://bloggingweb-5trn.onrender.com";
+
 export default function Home() {
   const [blogs, setBlogs] = useState([]);
 
-  // ✅ IMPORTANT BASE URL (DEPLOY LINK)
-  const BASE_URL = "https://bloggingweb-1-rejs.onrender.com";
-
   // ✅ FETCH BLOGS
   const fetchBlogs = () => {
-    axios.get(`${BASE_URL}/api/blogs`)
+    axios.get(`${API}/api/blogs`)
       .then((res) => {
         setBlogs(res.data);
       })
@@ -25,7 +25,7 @@ export default function Home() {
   // ✅ DELETE BLOG
   const deleteBlog = async (id) => {
     try {
-      await axios.delete(`${BASE_URL}/api/blogs/${id}`);
+      await axios.delete(`${API}/api/blogs/${id}`);
       fetchBlogs();
     } catch (err) {
       console.log(err);
@@ -40,26 +40,23 @@ export default function Home() {
     if (!newTitle || !newContent) return;
 
     try {
-      await axios.put(`${BASE_URL}/api/blogs/${id}`, {
+      await axios.put(`${API}/api/blogs/${id}`, {
         title: newTitle,
         content: newContent,
       });
+
       fetchBlogs();
     } catch (err) {
       console.log(err);
     }
   };
 
-  // ✅ LIKE BLOG (FIXED)
+  // ✅ LIKE BLOG
   const likeBlog = async (id) => {
     try {
-<<<<<<< HEAD
-      await axios.put(`http://localhost:5000/api/blogs/like/${id}`, {
-        userId: "123" // 👈 important
+      await axios.put(`${API}/api/blogs/like/${id}`, {
+        userId: "123"
       });
-=======
-      await axios.put(`${BASE_URL}/api/blogs/like/${id}`);
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
       fetchBlogs();
     } catch (err) {
       console.log(err);
@@ -69,11 +66,7 @@ export default function Home() {
   // ✅ SAVE BLOG
   const saveBlog = async (id) => {
     try {
-<<<<<<< HEAD
-      await axios.put(`https://blogs-repo-1.onrender/api/blogs/save/${id}`);
-=======
-      await axios.put(`${BASE_URL}/api/blogs/save/${id}`);
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
+      await axios.put(`${API}/api/blogs/save/${id}`);
       fetchBlogs();
     } catch (err) {
       console.log(err);
@@ -92,35 +85,18 @@ export default function Home() {
             <h3>{blog.title}</h3>
             <p>{blog.content}</p>
 
-<<<<<<< HEAD
-            {/* UPDATE */}
-=======
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
             <button onClick={() => updateBlog(blog._id)}>
               Update ✏️
             </button>
 
-<<<<<<< HEAD
-            {/* DELETE */}
-=======
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
             <button onClick={() => deleteBlog(blog._id)}>
               Delete 🗑️
             </button>
 
-<<<<<<< HEAD
-            {/* LIKE */}
             <button onClick={() => likeBlog(blog._id)}>
               ❤️ {blog.likes?.length || 0}
             </button>
 
-            {/* SAVE */}
-=======
-            <button onClick={() => likeBlog(blog._id)}>
-              ❤️ {blog.likes || 0}
-            </button>
-
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
             <button onClick={() => saveBlog(blog._id)}>
               {blog.saved ? "Saved 💾" : "Save"}
             </button>
