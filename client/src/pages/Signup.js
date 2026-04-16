@@ -1,14 +1,22 @@
 import { useState } from "react";
 import axios from "axios";
 
+// ✅ Central API URL
+const API = import.meta.env.VITE_API_URL || "https://bloggingweb-5trn.onrender.com";
+
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignup = async () => {
+    if (!name || !email || !password) {
+      alert("Please fill all fields");
+      return;
+    }
+
     try {
-      const res = await axios.post("http://localhost:5000/api/signup", {
+      const res = await axios.post(`${API}/api/signup`, {
         name,
         email,
         password,
@@ -16,7 +24,7 @@ export default function Signup() {
 
       alert(res.data.message);
     } catch (err) {
-      alert("Error");
+      alert(err.response?.data?.message || "Error");
     }
   };
 

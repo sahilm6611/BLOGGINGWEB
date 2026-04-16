@@ -2,6 +2,9 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+// ✅ Central API URL
+const API = import.meta.env.VITE_API_URL || "https://bloggingweb-5trn.onrender.com";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,11 +21,7 @@ export default function Login() {
     try {
       setLoading(true);
 
-<<<<<<< HEAD
-      const res = await axios.post("http://localhost:5000/api/login", {
-=======
-      const res = await axios.post("https://bloggingweb-1-rejs.onrender.com/api/login", {
->>>>>>> 98c56663825d29f340a3b7e53968ea61a0de2048
+      const res = await axios.post(`${API}/api/login`, {
         email,
         password,
       });

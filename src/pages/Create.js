@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 
+// ✅ Central API URL
+const API = import.meta.env.VITE_API_URL || "https://bloggingweb-5trn.onrender.com";
+
 export default function Create() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -11,11 +14,10 @@ export default function Create() {
       return;
     }
 
-    // ✅ DEBUG LINE (IMPORTANT)
     console.log("Sending:", title, content);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/blogs", {
+      const res = await axios.post(`${API}/api/blogs`, {
         title,
         content,
       });
@@ -24,8 +26,8 @@ export default function Create() {
 
       window.location.href = "/";
     } catch (err) {
-      console.log("ERROR:", err); // ✅ full error log
-      alert("Error creating blog ❌");
+      console.log("ERROR:", err);
+      alert(err.response?.data?.message || "Error creating blog ❌");
     }
   };
 
