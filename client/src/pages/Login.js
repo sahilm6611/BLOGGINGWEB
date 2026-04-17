@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 // ✅ Central API URL
-const API = import.meta.env.VITE_API_URL || "https://bloggingweb-5trn.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://bloggingweb-1-rejs.onrender.com";
 
 export default function Login() {
   const [email, setEmail] = useState("");
