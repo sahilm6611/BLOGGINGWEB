@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// ✅ Central API URL
+// ✅ USE ENV VARIABLE (BEST PRACTICE)
 const API = import.meta.env.VITE_API_URL || "https://bloggingweb-5trn.onrender.com";
 
 export default function Home() {
@@ -44,6 +44,7 @@ export default function Home() {
         title: newTitle,
         content: newContent,
       });
+
       fetchBlogs();
     } catch (err) {
       console.log(err);

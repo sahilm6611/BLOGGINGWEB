@@ -27,7 +27,7 @@ export default function Create() {
       window.location.href = "/";
     } catch (err) {
       console.log("ERROR:", err);
-
+      alert("Error creating blog ❌");
     }
   };
 

@@ -29,7 +29,7 @@ const User = require("./models/User");
    TEST ROUTE
 ========================= */
 app.get("/", (req, res) => {
-  res.send("Server working 🚀");
+  res.send("API is running 🚀");
 });
 
 /* =========================

@@ -28,7 +28,8 @@ export default function Login() {
 
       alert(res.data.message);
 
-
+      // redirect after login
+      navigate("/");
 
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");

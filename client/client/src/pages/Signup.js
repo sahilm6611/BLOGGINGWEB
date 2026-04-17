@@ -1,63 +1,54 @@
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 // ✅ Central API URL
 const API = import.meta.env.VITE_API_URL || "https://bloggingweb-5trn.onrender.com";
 
-export default function Login() {
+export default function Signup() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
-
-  const handleLogin = async () => {
-    if (!email || !password) {
+  const handleSignup = async () => {
+    if (!name || !email || !password) {
       alert("Please fill all fields");
       return;
     }
 
     try {
-      setLoading(true);
-
-      const res = await axios.post(`${API}/api/login`, {
+      const res = await axios.post(`${API}/api/signup`, {
+        name,
         email,
         password,
       });
 
       alert(res.data.message);
-
-
-
     } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
-    } finally {
-      setLoading(false);
+      alert(err.response?.data?.message || "Error");
     }
   };
 
   return (
     <div className="container">
-      <h2>Login 🔐</h2>
+      <h2>Signup 📝</h2>
 
       <input
-        type="email"
+        placeholder="Name"
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      <input
         placeholder="Email"
-        value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
 
       <input
         type="password"
         placeholder="Password"
-        value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button onClick={handleLogin} disabled={loading}>
-        {loading ? "Logging in..." : "Login"}
-      </button>
+      <button onClick={handleSignup}>Signup</button>
     </div>
   );
 }
